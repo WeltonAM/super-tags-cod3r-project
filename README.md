@@ -1,2 +1,1 @@
-# super-tags-cod3r-project
- SuperTags Project Developed By Cod3r Group Assessment
+https://github.com/especialistadev/projetos-equipes-1/tree/main/supertags
