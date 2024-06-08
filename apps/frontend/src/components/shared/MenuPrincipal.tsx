@@ -37,7 +37,7 @@ export default function MenuPrincipal() {
     }, []);
 
     return (
-        <div className="relative flex w-full justify-between items-center p-3 bg-zinc-900 border-b-2 border-zinc-700">
+        <div className="relative flex w-full justify-between items-center p-3 bg-zinc-900 border-b-2 border-zinc-800">
             <button className="text-gray-300 hover:text-gray-400 p-2">
                 <IconMenu2 size={24} strokeWidth={1.5} />
             </button>
