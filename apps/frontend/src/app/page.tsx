@@ -38,7 +38,7 @@ export default function Autenticacao() {
   }
 
   return (
-    <div className=" min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/images/image.png')" }}>
+    <div className=" min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/images/background.png')" }}>
       <div className="flex flex-col justify-center items-center gap-5 h-screen ">
         <h1 className="text-3xl font-black self-center text-white">
           {modo === "login" ? "Entre com a sua conta" : "Cadastre-se na plataforma"}
