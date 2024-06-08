@@ -10,8 +10,10 @@ export interface PaginaProps {
 export default function Pagina(props: PaginaProps) {
     return (
         <ForcarUsuarioAutenticado>
-            <MenuPrincipal />
-            {props.children}
+            <div className="flex flex-col min-h-screen">
+                <MenuPrincipal />
+                {props.children}
+            </div>
         </ForcarUsuarioAutenticado>
     )
 }
