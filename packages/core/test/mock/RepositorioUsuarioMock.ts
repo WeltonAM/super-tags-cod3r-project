@@ -5,11 +5,13 @@ export default class RepositorioUsuarioMock implements RepositorioUsuario {
 
     async salvar(usuario: Usuario): Promise<Usuario> {
         const index = this.usuarios.findIndex((c) => c.id.valor === usuario.id.valor)
+        
         if (index >= 0) {
             this.usuarios[index] = usuario
         } else {
             this.usuarios.push(usuario)
         }
+
         return usuario
     }
 
