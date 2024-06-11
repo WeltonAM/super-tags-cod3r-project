@@ -19,9 +19,9 @@ test("Deve cadastrar uma SuperTag", async () => {
     const superTagSalva = await repo.obterPorTitulo(titulo)
     
     expect(superTagSalva).toBeDefined()
-    expect(superTagSalva?.titulo).toBe(titulo)
-    expect(superTagSalva?.emoji).toEqual(emoji)
-    expect(superTagSalva?.propriedades).toEqual(propriedades)
+    expect(superTagSalva!.titulo).toBe(titulo)
+    expect(superTagSalva!.emoji).toEqual(emoji)
+    expect(superTagSalva!.propriedades).toEqual(propriedades)
 })
 
 test("Deve lançar erro com título inválido", async () => {
