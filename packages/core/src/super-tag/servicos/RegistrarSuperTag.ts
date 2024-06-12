@@ -1,5 +1,5 @@
 import CasoDeUso from "../../compartilhado/CasoDeUso"
-import SuperTagRepositorio from "../provedor/SuperTagRepositorio"
+import SuperTagRepositorio from "../provedor/RepositorioSuperTag"
 import SuperTag, { SuperTagProps } from "../modelo/SuperTag"
 import Emoji from "../provedor/Emoji"
 import Propriedade from "../provedor/Propriedade"
@@ -8,23 +8,26 @@ export interface Entrada {
     titulo?: string
     emoji?: Emoji
     propriedades?: Propriedade[]
+    chaveRelacionamento?: string
 }
 
-export default class RegistrarSuperTag implements CasoDeUso<Entrada, void> {
+export default class RegistrarSuperTag implements CasoDeUso<Entrada, SuperTag> {
     constructor(private repo: SuperTagRepositorio) {}
 
-    async executar(dto: Entrada): Promise<void> {
+    async executar(dto: Entrada): Promise<SuperTag> {
+        
         const superTagProps: SuperTagProps = {
             titulo: dto.titulo,
             emoji: dto.emoji,
             propriedades: dto.propriedades,
+            chaveRelacionamento: dto.chaveRelacionamento,
         }
 
         const superTag = new SuperTag(superTagProps)
-        await this.repo.salvar(superTag)
+
+        return await this.repo.salvar(superTag)
     }
 }
-
 
 // alterarTitulo(novoTitulo: string): SuperTag {
 //     return this.clone({ titulo: novoTitulo })
