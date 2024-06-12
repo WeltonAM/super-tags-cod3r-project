@@ -3,33 +3,53 @@ import SuperTag from "../../src/super-tag/modelo/SuperTag";
 import RepositorioSuperTag from "../../src/super-tag/provedor/RepositorioSuperTag";
 
 export default class RepositorioSuperTagMock implements RepositorioSuperTag {
-    constructor(private readonly superTags: SuperTag[] = []) {}
+  private superTags: SuperTag[];
 
-    async salvar(superTag: SuperTag): Promise<SuperTag> {
-        const index = this.superTags.findIndex((c) => c.id.valor === superTag.id.valor);
+  constructor(superTags: SuperTag[] = []) {
+    this.superTags = superTags;
+  }
 
-        if (index >= 0) {
-            this.superTags[index] = superTag;
-        } else {
-            this.superTags.push(superTag);
-        }
+  async salvar(superTag: SuperTag): Promise<SuperTag> {
+    const index = this.superTags.findIndex(
+      (tag) => tag.id.valor === superTag.id.valor
+    );
 
-        return superTag;
+    if (index >= 0) {
+      this.superTags[index] = superTag;
+    } else {
+      this.superTags.push(superTag);
     }
 
-    async obterPorId(superTagId: string | Id | undefined): Promise<SuperTag | null> {
-        if (superTagId === undefined) return null; 
-     
-        return this.superTags.find((u) => u.id.valor === (superTagId instanceof Id ? superTagId.valor : superTagId)) ?? null;
-    }
-    
-    async obterFilhas(chaveRelacionamento: string | Id | undefined): Promise<SuperTag[]> {
-        if (chaveRelacionamento === undefined) return [];
+    return superTag;
+  }
 
-        return this.superTags.filter((u) => u.chaveRelacionamento?.valor === (chaveRelacionamento instanceof Id ? chaveRelacionamento.valor : chaveRelacionamento)) ?? [];
-    }
+  async obterPorId(
+    superTagId: string | Id | undefined
+  ): Promise<SuperTag | null> {
+    if (superTagId === undefined) return null;
 
-    async obterPorTitulo(titulo: string): Promise<SuperTag | null> {
-        return this.superTags.find((u) => u.titulo === titulo) ?? null;
-    }
+    return (
+      this.superTags.find(
+        (tag) =>
+          tag.id.valor ===
+          (superTagId instanceof Id ? superTagId.valor : superTagId)
+      ) ?? null
+    );
+  }
+
+  async obterFilhas(chaveFilha: string | Id | undefined): Promise<SuperTag[]> {
+    if (chaveFilha === undefined) return [];
+
+    return (
+      this.superTags.filter(
+        (tag) =>
+          tag.chaveFilha?.valor ===
+          (chaveFilha instanceof Id ? chaveFilha.valor : chaveFilha)
+      ) ?? []
+    );
+  }
+
+  async obterPorTitulo(titulo: string): Promise<SuperTag | null> {
+    return this.superTags.find((tag) => tag.titulo === titulo) ?? null;
+  }
 }

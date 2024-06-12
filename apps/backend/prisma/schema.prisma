@@ -16,10 +16,21 @@ model Usuario {
     updatedAt DateTime @updatedAt
 }
 
-// model Page {
-//   id         Int      @id @default(autoincrement())
-//   title      String
-//   emoji      String
-//   properties Json
-//   updatedAt  DateTime @updatedAt
-// }
+model SuperTag {
+    id            String         @id @db.Uuid
+    titulo        String
+    emoji         String
+    propriedades  Propriedades[]
+    updatedAt     DateTime       @updatedAt
+    superTagPaiId String?
+    superTagPai   SuperTag?      @relation("SuperTagHierarchy", fields: [superTagPaiId], references: [id])
+    superTagFilha SuperTag[]     @relation("SuperTagHierarchy")
+}
+
+model Propriedades {
+    id         String   @id @db.Uuid
+    superTagId String
+    superTag   SuperTag @relation(fields: [superTagId], references: [id])
+    valor      String
+    descricao  String
+}

@@ -12,6 +12,13 @@ async function seed() {
     }
 
     await prisma.usuario.create({ data: usuario })
+
+    const superTag = {
+        id: faker.string.uuid(),
+        titulo: "Super Tag",
+
+    }
 }
 
 seed()
+

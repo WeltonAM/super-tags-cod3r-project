@@ -1,32 +1,38 @@
-import CasoDeUso from "../../compartilhado/CasoDeUso"
-import SuperTagRepositorio from "../provedor/RepositorioSuperTag"
-import SuperTag, { SuperTagProps } from "../modelo/SuperTag"
-import Emoji from "../provedor/Emoji"
-import Propriedade from "../provedor/Propriedade"
+import CasoDeUso from "../../compartilhado/CasoDeUso";
+import SuperTagRepositorio from "../provedor/RepositorioSuperTag";
+import SuperTag, { SuperTagProps } from "../modelo/SuperTag";
+import Emoji from "../modelo/Emoji";
+import { SuperTagPropriedadeProps } from "../modelo/SuperTagPropriedade";
+import SuperTagPropriedades from "../modelo/SuperTagPropriedades";
 
 export interface Entrada {
-    titulo?: string
-    emoji?: Emoji
-    propriedades?: Propriedade[]
-    chaveRelacionamento?: string
+  titulo: string;
+  emoji?: Emoji;
+  propriedades?: SuperTagPropriedadeProps[];
+  chaveFilha?: string;
+  chavePai?: string;
+  filhas?: Entrada[];
 }
 
-export default class RegistrarSuperTag implements CasoDeUso<Entrada, SuperTag> {
-    constructor(private repo: SuperTagRepositorio) {}
+export default class SalvarSuperTag implements CasoDeUso<Entrada, SuperTag> {
+  constructor(private repo: SuperTagRepositorio) {}
 
-    async executar(dto: Entrada): Promise<SuperTag> {
-        
-        const superTagProps: SuperTagProps = {
-            titulo: dto.titulo,
-            emoji: dto.emoji,
-            propriedades: dto.propriedades,
-            chaveRelacionamento: dto.chaveRelacionamento,
-        }
+  async executar(dto: Entrada): Promise<SuperTag> {
+    const { titulo, emoji, propriedades, chaveFilha, chavePai, filhas } = dto;
 
-        const superTag = new SuperTag(superTagProps)
+    const superTagProps: SuperTagProps = {
+      titulo,
+      emoji,
+      propriedades,
+      chaveFilha,
+      chavePai,
+      filhas,
+    };
 
-        return await this.repo.salvar(superTag)
-    }
+    const superTag = new SuperTag(superTagProps);
+
+    return await this.repo.salvar(superTag);
+  }
 }
 
 // alterarTitulo(novoTitulo: string): SuperTag {
@@ -56,7 +62,7 @@ export default class RegistrarSuperTag implements CasoDeUso<Entrada, SuperTag> {
 
 // excluirPropriedade(nome: string): SuperTag {
 //     const propriedadesAtualizadas = this.propriedades.filter(prop => prop.nome !== nome)
-    
+
 //     return this.clone({ propriedades: propriedadesAtualizadas })
 // }
 
