@@ -1,3 +1,4 @@
+import Id from "../../src/compartilhado/Id";
 import SuperTag from "../../src/super-tag/modelo/SuperTag";
 import RepositorioSuperTag from "../../src/super-tag/provedor/RepositorioSuperTag";
 
@@ -16,12 +17,16 @@ export default class RepositorioSuperTagMock implements RepositorioSuperTag {
         return superTag;
     }
 
-    async obterPorId(superTagId: string): Promise<SuperTag | null> {
-        return this.superTags.find((u) => u.id.valor === superTagId) ?? null;
+    async obterPorId(superTagId: string | Id | undefined): Promise<SuperTag | null> {
+        if (superTagId === undefined) return null; 
+     
+        return this.superTags.find((u) => u.id.valor === (superTagId instanceof Id ? superTagId.valor : superTagId)) ?? null;
     }
+    
+    async obterFilhas(chaveRelacionamento: string | Id | undefined): Promise<SuperTag[]> {
+        if (chaveRelacionamento === undefined) return [];
 
-    async obterFilhas(superTagId: string): Promise<SuperTag[]> {
-        return this.superTags.filter((u) => u.chaveRelacionamento?.valor === superTagId);
+        return this.superTags.filter((u) => u.chaveRelacionamento?.valor === (chaveRelacionamento instanceof Id ? chaveRelacionamento.valor : chaveRelacionamento)) ?? [];
     }
 
     async obterPorTitulo(titulo: string): Promise<SuperTag | null> {

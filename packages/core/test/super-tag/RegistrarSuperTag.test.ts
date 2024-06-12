@@ -78,8 +78,6 @@ test("Deve incluir uma SuperTag em outra criando relacionamento entre elas", asy
 
     const superTagSalvaFilha = await repo.obterPorId(superTagFilha.id.valor);
 
-    console.log(superTagFilha)
-
     expect(superTagSalvaFilha).toBeDefined();
     expect(superTagSalvaFilha?.titulo).toBe("SuperTag Filha");
     expect(superTagSalvaFilha?.emoji).toEqual({ codigo: "1f424", url: "Emoji Filha" });
