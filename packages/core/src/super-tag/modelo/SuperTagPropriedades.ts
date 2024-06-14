@@ -4,7 +4,7 @@ import SuperTagPropriedade, {
 } from "./SuperTagPropriedade";
 
 export default class SuperTagPropriedades {
-  readonly todas: SuperTagPropriedade[];
+  todas: SuperTagPropriedade[];
 
   constructor(todas: SuperTagPropriedadeProps[]) {
     this.todas = todas.map((p) => new SuperTagPropriedade(p));
@@ -14,37 +14,18 @@ export default class SuperTagPropriedades {
     return this.todas.map((p) => p.props);
   }
 
-  incluir(novasPropriedades: SuperTagPropriedadeProps[]): SuperTagPropriedades {
-    const propriedades = [...this.props, ...novasPropriedades];
-    return new SuperTagPropriedades(propriedades);
-  }
-
-  excluir(
-    propriedade: SuperTagPropriedade | Id | string
-  ): SuperTagPropriedades {
-    const propriedadeId = this.idSimples(propriedade);
-
-    return new SuperTagPropriedades(
-      this.props.filter((p) => p.id !== propriedadeId)
+  incluir(novasPropriedades: SuperTagPropriedadeProps[]): void {
+    const novasInstancias = novasPropriedades.map(
+      (p) => new SuperTagPropriedade(p)
     );
+    this.todas.push(...novasInstancias);
   }
 
-  atualizar(propriedade: SuperTagPropriedade): SuperTagPropriedades {
+  excluir(propriedade: SuperTagPropriedade | Id | string): void {
     const propriedadeId = this.idSimples(propriedade);
 
-    const propriedades = this.todas.map((p) => {
-      return p.id.valor === propriedadeId ? propriedade : p;
-    });
-
-    return new SuperTagPropriedades(propriedades.map((p) => ({ ...p.props })));
-  }
-
-  naoEncontradas(propriedades: SuperTagPropriedades): SuperTagPropriedades {
-    const ids = propriedades.todas.map((p) => p.id.valor);
-
-    const naoEncontradas = this.todas.filter((p) => !ids.includes(p.id.valor));
-
-    return new SuperTagPropriedades(naoEncontradas.map((p) => p.props));
+    console.log(`Excluindo propriedade com ID: ${propriedadeId}`);
+    this.todas = this.todas.filter((p) => p.id.valor !== propriedadeId);
   }
 
   private idSimples(propriedade: SuperTagPropriedade | Id | string): string {

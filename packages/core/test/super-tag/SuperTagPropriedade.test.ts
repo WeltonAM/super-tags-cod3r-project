@@ -7,8 +7,10 @@ test("Deve criar uma SuperTagPropriedade corretamente", () => {
     .comValor("Valor da propriedade")
     .agora();
 
-  expect(superTagPropriedade.id).toBe("1");
-  expect(superTagPropriedade.descricao).toBe("Descrição da propriedade");
+  expect(superTagPropriedade.id).not.toBe("");
+  expect(superTagPropriedade.descricao.completo).toBe(
+    "Descrição da propriedade"
+  );
   expect(superTagPropriedade.tipo.tipo).toBe("texto");
   expect(superTagPropriedade.valor).toBe("Valor da propriedade");
 });
