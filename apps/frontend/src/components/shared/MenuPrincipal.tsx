@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect, useRef } from "react";
-import { IconMenu2 } from "@tabler/icons-react";
+import { useState, useEffect } from "react";
+import { IconMenu2, IconX } from "@tabler/icons-react";
 import useAutenticacao from "@/data/hooks/useAutenticacao";
 import { UsuarioDTO } from "adapters";
 import MenuUsuario from "./MenuUsuario";
@@ -11,8 +11,13 @@ interface UserInfoProps {
     onClick: () => void;
 }
 
-export default function MenuPrincipal() {
-    const { usuarioAutenticado, logout } = useAutenticacao();
+interface MenuPrincipalProps {
+    toggleBarraLateral: () => void;
+    isSidebarOpen: boolean;
+}
+
+export default function MenuPrincipal({ toggleBarraLateral, isSidebarOpen }: MenuPrincipalProps) {
+    const { usuarioAutenticado } = useAutenticacao();
     const [isMenuUsuarioOpen, setIsMenuUsuarioOpen] = useState(false);
 
     const toggleMenuUsuario = () => {
@@ -37,12 +42,22 @@ export default function MenuPrincipal() {
     }, []);
 
     return (
-        <div className="relative flex w-full justify-between items-center p-3 bg-zinc-900 border-b-2 border-zinc-800">
-            <button className="text-gray-300 hover:text-gray-400 p-2">
-                <IconMenu2 size={24} strokeWidth={1.5} />
+        <div className="
+            relative flex w-full 
+            justify-between items-center p-3 
+            bg-zinc-900 border-b-2 border-zinc-800 z-40
+        ">
+            <button className="text-gray-300 hover:text-gray-400 p-2" onClick={toggleBarraLateral}>
+                {isSidebarOpen ? (
+                    <IconX size={24} strokeWidth={1.5} />
+                ) : (
+                    <IconMenu2 size={24} strokeWidth={1.5} />
+                )}
             </button>
+
             <div className="relative" id="user-info">
                 <UserInfo usuario={usuarioAutenticado!} onClick={toggleMenuUsuario} />
+
                 {isMenuUsuarioOpen && (
                     <div className="absolute top-full right-0 mt-2" id="menu-usuario">
                         <MenuUsuario />

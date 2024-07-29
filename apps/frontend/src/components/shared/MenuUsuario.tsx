@@ -1,7 +1,7 @@
 'use client'
 
 import useAutenticacao from "@/data/hooks/useAutenticacao"
-import { IconLogout, IconSettings, IconUser } from "@tabler/icons-react"
+import { IconLogout, IconUser } from "@tabler/icons-react"
 import Link from "next/link"
 
 export default function MenuUsuario() {

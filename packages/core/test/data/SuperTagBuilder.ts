@@ -1,23 +1,21 @@
-import { SuperTag, SuperTagPropriedade, SuperTagProps, Emoji } from "../../src";
+import { SuperTag, SuperTagProps } from "../../src";
 import { faker } from "@faker-js/faker";
-import Id from "../../src/compartilhado/Id";
+import { PropriedadeProps } from "../../src/super-tag/modelo/Propriedade";
 
 export default class SuperTagBuilder {
   private constructor(private props: SuperTagProps) {}
 
   static criar() {
     return new SuperTagBuilder({
-      id: new Id().valor,
       titulo: faker.lorem.words(3),
-      emoji: {
-        codigo: "1f423",
-        url: "https://cdn.jsdelivr.net/gh/ealush/emoji-picker-react@custom_emojis_assets/alice.png",
-      },
+      emoji: "👨‍💻",
       propriedades: [],
-      chaveFilha: undefined,
-      chavePai: undefined,
-      filhas: [],
     });
+  }
+
+  static criarListaCom(qtde: number): SuperTagProps[] {
+    const superTag = (i: number) => SuperTagBuilder.criar().agora().props;
+    return Array.from({ length: qtde }).map((_, i) => superTag(i));
   }
 
   comId(id: string): SuperTagBuilder {
@@ -40,7 +38,7 @@ export default class SuperTagBuilder {
     return this;
   }
 
-  comEmoji(emoji: Emoji): SuperTagBuilder {
+  comEmoji(emoji: string): SuperTagBuilder {
     this.props.emoji = emoji;
     return this;
   }
@@ -50,43 +48,32 @@ export default class SuperTagBuilder {
     return this;
   }
 
-  comPropriedades(propriedades: SuperTagPropriedade[]): SuperTagBuilder {
-    this.props.propriedades = propriedades.map((p) => p.props);
-
+  comPropriedades(propriedades: PropriedadeProps[]): SuperTagBuilder {
+    this.props.propriedades = propriedades;
     return this;
   }
 
   semPropriedades(): SuperTagBuilder {
-    this.props.propriedades = [];
+    this.props.propriedades = undefined;
     return this;
   }
 
-  comChaveFilha(chaveFilha: string): SuperTagBuilder {
-    this.props.chaveFilha = chaveFilha;
-    return this;
-  }
-
-  semChaveFilha(): SuperTagBuilder {
-    this.props.chaveFilha = undefined;
-    return this;
-  }
-
-  comChavePai(chavePai: string): SuperTagBuilder {
+  comChavePai(chavePai: string) {
     this.props.chavePai = chavePai;
     return this;
   }
 
-  semChavePai(): SuperTagBuilder {
+  semChavePai() {
     this.props.chavePai = undefined;
     return this;
   }
 
-  comFilhas(filhas: SuperTagProps[]): SuperTagBuilder {
+  comFilhas(filhas: SuperTagProps[]) {
     this.props.filhas = filhas;
     return this;
   }
 
-  semFilhas(): SuperTagBuilder {
+  semFilhas() {
     this.props.filhas = [];
     return this;
   }

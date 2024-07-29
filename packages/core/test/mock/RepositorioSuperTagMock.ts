@@ -9,6 +9,10 @@ export default class RepositorioSuperTagMock implements RepositorioSuperTag {
     this.superTags = superTags;
   }
 
+  async obterTodos(): Promise<SuperTag[]> {
+    return this.superTags;
+  }
+
   async salvar(superTag: SuperTag): Promise<SuperTag> {
     const index = this.superTags.findIndex(
       (tag) => tag.id.valor === superTag.id.valor
@@ -37,19 +41,23 @@ export default class RepositorioSuperTagMock implements RepositorioSuperTag {
     );
   }
 
-  async obterFilhas(chaveFilha: string | Id | undefined): Promise<SuperTag[]> {
-    if (chaveFilha === undefined) return [];
+  async obterFilhas(chavePai: string | Id | undefined): Promise<SuperTag[]> {
+    if (chavePai === undefined) return [];
 
     return (
       this.superTags.filter(
         (tag) =>
-          tag.chaveFilha?.valor ===
-          (chaveFilha instanceof Id ? chaveFilha.valor : chaveFilha)
+          tag.chavePai?.valor ===
+          (chavePai instanceof Id ? chavePai.valor : chavePai)
       ) ?? []
     );
   }
 
   async obterPorTitulo(titulo: string): Promise<SuperTag | null> {
     return this.superTags.find((tag) => tag.titulo === titulo) ?? null;
+  }
+
+  limpar(): void {
+    this.superTags = [];
   }
 }

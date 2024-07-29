@@ -1,5 +1,6 @@
 "use client"
 import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 import useAutenticacao from "@/data/hooks/useAutenticacao"
 
 interface ForcarUsuarioAutenticadoProps {
@@ -10,10 +11,13 @@ export default function ForcarUsuarioAutenticado(props: ForcarUsuarioAutenticado
     const router = useRouter()
     const { usuarioAutenticado, carregando } = useAutenticacao()
 
-    if (carregando) return null
+    useEffect(() => {
+        if (!carregando && !usuarioAutenticado) {
+            router.push("/")
+        }
+    }, [carregando, usuarioAutenticado, router])
 
-    if (!usuarioAutenticado) {
-        router.push("/")
+    if (carregando || !usuarioAutenticado) {
         return null
     }
 

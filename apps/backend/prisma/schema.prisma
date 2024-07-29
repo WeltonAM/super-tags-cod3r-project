@@ -17,20 +17,21 @@ model Usuario {
 }
 
 model SuperTag {
-    id            String         @id @db.Uuid
-    titulo        String
+    id            String        @id @db.Uuid
+    title         String
     emoji         String
-    propriedades  Propriedades[]
-    updatedAt     DateTime       @updatedAt
-    superTagPaiId String?
-    superTagPai   SuperTag?      @relation("SuperTagHierarchy", fields: [superTagPaiId], references: [id])
-    superTagFilha SuperTag[]     @relation("SuperTagHierarchy")
+    propriedades  Propriedade[]
+    updatedAt     DateTime      @updatedAt
+    superTagPaiId String?       @db.Uuid
+    superTagPai   SuperTag?     @relation("SuperTagHierarchy", fields: [superTagPaiId], references: [id])
+    superTagFilha SuperTag[]    @relation("SuperTagHierarchy")
 }
 
-model Propriedades {
+model Propriedade {
     id         String   @id @db.Uuid
-    superTagId String
+    superTagId String   @db.Uuid
     superTag   SuperTag @relation(fields: [superTagId], references: [id])
     valor      String
     descricao  String
+    tipo       String
 }

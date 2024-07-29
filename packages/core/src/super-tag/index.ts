@@ -1,14 +1,21 @@
 import SuperTag, { SuperTagProps } from "./modelo/SuperTag";
-import RegistrarSuperTag from "./servicos/SalvarSuperTag";
 import RepositorioSuperTag from "./provedor/RepositorioSuperTag";
-import Emoji from "./modelo/Emoji";
-import SuperTagPropriedade from "./modelo/SuperTagPropriedade";
-import { SuperTagPropriedadeProps } from "./modelo/SuperTagPropriedade";
+import { PropriedadeProps } from "./modelo/Propriedade";
+import Propriedade, { PropriedadeTipo } from "./modelo/Propriedade";
+import RegistrarSuperTag from "./servicos/RegistrarSuperTag";
+import ObterSuperTags from "./servicos/ObterSuperTags";
+import ObterSuperTagPorId from "./servicos/ObterSuperTagPorId";
 
 export type {
   SuperTagProps,
   RepositorioSuperTag,
-  SuperTagPropriedadeProps,
-  Emoji,
+  PropriedadeProps,
+  PropriedadeTipo,
 };
-export { SuperTag, RegistrarSuperTag, SuperTagPropriedade };
+export {
+  SuperTag,
+  RegistrarSuperTag,
+  Propriedade,
+  ObterSuperTags,
+  ObterSuperTagPorId,
+};

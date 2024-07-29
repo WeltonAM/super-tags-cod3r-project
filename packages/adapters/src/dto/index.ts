@@ -1,7 +1,5 @@
-import UsuarioDTO from "./UsuarioDTO"
-import SuperTagDTO from "./SuperTagDTO"
+import UsuarioDTO from "./UsuarioDTO";
+import SuperTagDTO from "./SuperTagDTO";
+import PropriedadeDTO from "./PropriedadeDTO";
 
-export type {
-    UsuarioDTO,
-    SuperTagDTO
-}
+export type { UsuarioDTO, SuperTagDTO, PropriedadeDTO };

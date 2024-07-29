@@ -11,7 +11,6 @@ export default function Pagina(props: PaginaProps) {
     return (
         <ForcarUsuarioAutenticado>
             <div className="flex flex-col min-h-screen">
-                <MenuPrincipal />
                 {props.children}
             </div>
         </ForcarUsuarioAutenticado>

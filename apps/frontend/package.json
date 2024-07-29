@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emoji-mart/react": "^1.1.1",
     "@tabler/icons-react": "^2.35.0",
     "adapters": "*",
+    "emoji-mart": "^5.6.0",
     "js-cookie": "^3.0.5",
     "jwt-decode": "^3.1.2",
     "next": "14.2.3",
@@ -20,7 +22,8 @@
     "react-toastify": "^10.0.5"
   },
   "devDependencies": {
-    "@types/js-cookie": "^3.0.4",
+    "@emoji-mart/data": "^1.2.1",
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
